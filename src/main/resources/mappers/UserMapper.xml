@@ -30,12 +30,16 @@
         FROM user
         WHERE userId=#{userId}
     </select>
+
+    <select id="updateCheckUpwInfo">
+        SELECT upw
+        FROM user
+        WHERE userId=#{userId}
+    </select>
     
     <update id="updateUserInfo">
         UPDATE user
-        SET  email=#{email}
-            ,nickName=#{nickName}
-            ,upw=#{upw}
+        SET nickName=#{nickName}
         WHERE userId=#{userId}
     </update>
 
@@ -46,8 +50,26 @@
     </delete>
 
     <select id="getUserCafeInfo">
-        SELECT cafeId,cafeName,cafePic,location
-        FROM cafe
+        SELECT
+                c.cafeId,
+                c.cafeName,
+                c.cafePic,
+                c.location,
+                sub.distance
+        FROM cafe c
+        JOIN (
+                SELECT
+                cafeId,
+                ROUND(6371000 * ACOS(COS(RADIANS(#{userLatitude}))
+                * COS(RADIANS(latitude))
+                * COS(RADIANS(longitude) - RADIANS(#{userLongitude}))
+                + SIN(RADIANS(#{userLatitude}))
+                * SIN(RADIANS(latitude)))) AS distance
+                FROM cafe
+        ) sub
+        ON c.cafeId = sub.cafeId
+        AND sub.distance <![CDATA[ <= ]]> 1000
+        ORDER BY sub.distance
     </select>
 
 

@@ -9,7 +9,9 @@ import lombok.extern.slf4j.Slf4j;
 import org.springdoc.core.annotations.ParameterObject;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("user")
@@ -19,7 +21,7 @@ import java.util.List;
 
 public class UserController {
     private final UserService service;
-
+    private final Map<Long,UserLocationReq> userLocation = new HashMap<>(); // userId 의 위도,경도 객체 임시저장소로 설정
 
     @PostMapping("sign-up")
     @Operation(summary = "회원가입")
@@ -68,11 +70,11 @@ public class UserController {
 
     @PutMapping("info")
     @Operation(summary = "회원정보 수정")
-    public ResultResponse<Integer> updateUserInfo(@ParameterObject @ModelAttribute UserInfoPutReq p){
+    public ResultResponse<Integer> updateUserInfo(@RequestBody UserInfoPutReq p){
         int result=service.updateUserInfo(p);
 
         return ResultResponse.<Integer>builder()
-                .resultMessage("회원정보 수정 완료")
+                .resultMessage(result==0?"비밀번호가 틀립니다":"회원정보수정 완료")
                 .resultData(result)
                 .build();
     }
@@ -89,10 +91,34 @@ public class UserController {
 
     }
 
+    // 컨트롤러에서 자체적으로 처리하고 끝내는 메소드(postUserLocation)
+    @PostMapping("location")
+    @Operation(summary = "유저 위치 전송")
+    public ResultResponse<Integer> postUserLocation(@RequestBody UserLocationReq p) {
+        // 유저 ID를 하드코딩
+        Long userId=p.getUserId();
+        userLocation.put(userId, p); // 유저 ID를 키로 사용하여 위치 저장
+        return ResultResponse.<Integer>builder()
+                .resultMessage("유저 위치 정보 전송 완료")
+                .resultData(1)
+                .build();
+    }
+
+
     @GetMapping
     @Operation(summary = "카페 정보 전체 출력")
-    public ResultResponse<List<UserCafeInfoGetRes>> getUserCafeInfo() {
-        List<UserCafeInfoGetRes> result = service.getUserCafeInfo();
+    public ResultResponse<List<UserCafeInfoGetRes>> getUserCafeInfo(@RequestParam long userId) {
+
+        UserLocationReq req=userLocation.get(userId);
+
+        UserLocationDto dto=new UserLocationDto();
+
+        dto.setUserLatitude(req.getUserLatitude());
+        dto.setUserLongitude(req.getUserLongitude());
+
+
+        List<UserCafeInfoGetRes> result = service.getUserCafeInfo(dto);
+
 
         return ResultResponse.<List<UserCafeInfoGetRes>>builder()
                 .resultMessage("카페 정보 출력 완료")
