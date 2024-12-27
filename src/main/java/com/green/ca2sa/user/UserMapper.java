@@ -12,6 +12,7 @@ public interface UserMapper {
     UserSingInRes postUserSingIn(UserSignInReq p);
     UserInfoGetRes getUserInfo(long userId);
     int updateUserInfo(UserInfoPutReq p);
+    UserInfoPutDto updateCheckUpwInfo(UserInfoPutReq p);
     int deleteUserInfo(long userId);
-    List<UserCafeInfoGetRes> getUserCafeInfo();
+    List<UserCafeInfoGetRes> getUserCafeInfo(UserLocationDto p);
 }

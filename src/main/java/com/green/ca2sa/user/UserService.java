@@ -67,11 +67,20 @@ public class UserService {
 
     public int updateUserInfo(UserInfoPutReq p){
 
-        String hashedPassword=BCrypt.hashpw(p.getUpw(), BCrypt.gensalt());
-        p.setUpw(hashedPassword);
+        UserInfoPutDto dto=mapper.updateCheckUpwInfo(p);
+
+        if(!BCrypt.checkpw(p.getUpw(), dto.getUpw())){
+            return 0; // 비밀번호가 틀릴시 0으로 리턴
+        }
+
+
+
+//        String hashedPassword=BCrypt.hashpw(p.getUpw(), BCrypt.gensalt());
+//        p.setUpw(hashedPassword); 비밀번호는 수정못하는걸로 간다. 프론트에서 어렵다 함.
 
 
         int result=mapper.updateUserInfo(p);
+
 
         return result;
     }
@@ -83,8 +92,15 @@ public class UserService {
         return result;
     }
 
-    public List<UserCafeInfoGetRes> getUserCafeInfo(){
-        List<UserCafeInfoGetRes> result=mapper.getUserCafeInfo();
+
+
+    // 카페별 거리도 보내주기.
+    public List<UserCafeInfoGetRes> getUserCafeInfo(UserLocationDto p){
+
+
+        List<UserCafeInfoGetRes> result=mapper.getUserCafeInfo(p);
+
+
 
 
         return result;
