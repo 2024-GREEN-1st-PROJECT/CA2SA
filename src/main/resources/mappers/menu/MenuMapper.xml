@@ -19,7 +19,7 @@
     </select>
 
     <select id = "getMenuInfo">
-        SELECT A.menuId, A.menuName, A.price, A.comment, A.menuPic, B.categoryId
+        SELECT A.menuId, A.menuName, A.price, A.comment, A.menuPic, B.categoryName
         FROM menu A
         LEFT JOIN category B
         ON A.categoryId = B.categoryId
