@@ -21,7 +21,7 @@ public class AuthController {
     private final AuthCodeService authCodeService;
 
     @PostMapping("send-code")
-    @Operation(description = "이메일 인증 코드 발송")
+    @Operation(summary = "이메일 인증 코드 발송")
     public ResultResponse<Boolean> postSendCode(@Valid @RequestBody SendEmailAuthCodeReq p) {
         AuthCodeDto authCodeDto = authCodeService.generateAuthCode(p);
         boolean result = authService.sendCodeToEmail(p.getEmail(), "CA2SA 이메일 인증 코드 안내", authCodeDto);
@@ -32,7 +32,7 @@ public class AuthController {
     }
 
     @PostMapping("verify-code")
-    @Operation(description = "이메일 인증 코드 검사")
+    @Operation(summary = "이메일 인증 코드 검사")
     public ResultResponse<Boolean> postVerifyCode(@Valid @RequestBody VerifyEmailAuthCodeReq p) {
         boolean result = authCodeService.validateAuthCode(p);
         return ResultResponse.<Boolean>builder()
