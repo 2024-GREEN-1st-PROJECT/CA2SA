@@ -8,7 +8,7 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
-@Tag(name = "메뉴 옵션 정보", description = "메뉴 옵션 등록")
+@Tag(name = "메뉴 옵션 관리", description = "메뉴 옵션 등록")
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("menu/option")

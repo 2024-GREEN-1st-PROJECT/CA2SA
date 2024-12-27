@@ -14,11 +14,10 @@ import org.springframework.web.multipart.MultipartFile;
 import java.util.List;
 import java.util.Map;
 
-@Tag(name = "메뉴 정보", description = "메뉴 등록, 메뉴 불러오기, 수정, 삭제")
+@Tag(name = "메뉴 관리", description = "메뉴 등록, 메뉴 불러오기, 수정, 삭제")
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("menu")
-@Tag(name = "메뉴 관련")
 public class MenuController {
     private final MenuService service;
 
