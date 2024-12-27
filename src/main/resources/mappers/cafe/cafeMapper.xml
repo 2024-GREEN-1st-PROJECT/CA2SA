@@ -40,11 +40,6 @@
         where orderId = #{orderId}
     </update>
 
-    <select id="selCafe">
-        select cafeName, location, tel, cafePic, openTime, closeTime
-        from cafe
-        where cafeId = #{cafeId}
-    </select>
     <select id="cafeEmailCheck">
         SELECT email
         FROM cafe
@@ -86,9 +81,8 @@
         GROUP BY DATE(e.createdAt)
     </select>
 
-    <select id="selCafeDistance">
+    <select id="selCafe">
         SELECT
-        ROUND(6371000  * ACOS(COS(RADIANS(#{userLatitude})) * COS(RADIANS(latitude)) * COS(RADIANS(longitude) - RADIANS(#{userLongitude})) + SIN(RADIANS(#{userLatitude})) * SIN(RADIANS(latitude)))) AS distance,
         cafeName, location, tel, cafePic, openTime, closeTime
         FROM cafe
         where cafeId = #{cafeId}

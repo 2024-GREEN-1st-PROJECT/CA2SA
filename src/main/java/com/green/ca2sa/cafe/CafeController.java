@@ -65,9 +65,9 @@ public class CafeController {
     }
     @GetMapping
     @Operation(summary = "카페 정보 조회")
-    public ResultResponse<CafeGetDistanceRes> getCafe(@ParameterObject @ModelAttribute CafeGetDistanceReq p) {
-        CafeGetDistanceRes res = cafeService.selCafeDistance(p);
-        return ResultResponse.<CafeGetDistanceRes>builder()
+    public ResultResponse<CafeGetRes> getCafe(@ParameterObject @ModelAttribute CafeGetReq p) {
+        CafeGetRes res = cafeService.selCafe(p);
+        return ResultResponse.<CafeGetRes>builder()
                 .resultData(res)
                 .resultMessage("카페 정보 조회 완료")
                 .build();
