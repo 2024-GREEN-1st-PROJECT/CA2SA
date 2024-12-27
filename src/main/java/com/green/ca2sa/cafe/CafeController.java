@@ -82,6 +82,16 @@ public class CafeController {
                 .build();
     }
 
+    @GetMapping("search")
+    @Operation(summary = "카페 검색")
+    public ResultResponse<List<CafeGetSearchRes>> getCafeSearch(@ParameterObject @ModelAttribute CafeGetSearchReq p) {
+        List<CafeGetSearchRes> res = cafeService.selSearchCafe(p);
+        return ResultResponse.<List<CafeGetSearchRes>>builder()
+                .resultData(res)
+                .resultMessage("조회 완료")
+                .build();
+    }
+
 
     @PatchMapping
     @Operation(summary = "카페 정보 수정")

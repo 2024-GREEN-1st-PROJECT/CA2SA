@@ -8,11 +8,11 @@ import java.util.List;
 @Mapper
 public interface CafeMapper {
     int updCafe(CafePutReq p);
-    CafeGetRes selCafe(CafeGetReq p);
     String cafeEmailCheck(String email);
     int insCafe(CafeSignUpReq p);
     CafeSignInRes signInCafe(String email);
     List<CafeGetSalesDto> selSumPriceWeekOfDay(CafeGetSalesReq p);
     CafeGetDistanceRes selCafeDistance(CafeGetDistanceReq p);
     List<CafeGetAllRes> selAllCafe(CafeGetAllReq p);
+    List<CafeGetSearchRes> searchCafe(CafeGetSearchReq p);
 }

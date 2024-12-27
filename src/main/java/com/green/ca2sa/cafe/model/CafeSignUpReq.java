@@ -5,6 +5,8 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.math.BigDecimal;
+
 @Getter
 @Setter
 public class CafeSignUpReq {
@@ -17,8 +19,8 @@ public class CafeSignUpReq {
     private String apw;
     private String businessNumber;
     private int agree;
-    private double latitude;
-    private double longitude;
+    private BigDecimal latitude;
+    private BigDecimal longitude;
     @JsonIgnore
     private String cafePic;
     @JsonIgnore

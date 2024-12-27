@@ -10,6 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
+import java.security.PublicKey;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -122,6 +123,11 @@ public class CafeService {
 
     public List<CafeGetAllRes> selAllCafe(CafeGetAllReq p){
         List<CafeGetAllRes> res = cafeMapper.selAllCafe(p);
+        return res;
+    }
+
+    public List<CafeGetSearchRes> selSearchCafe(CafeGetSearchReq p){
+        List<CafeGetSearchRes> res = cafeMapper.searchCafe(p);
         return res;
     }
 

@@ -99,7 +99,23 @@
         ROUND(6371000  * ACOS(COS(RADIANS(#{userLatitude})) * COS(RADIANS(latitude)) * COS(RADIANS(longitude) - RADIANS(#{userLongitude})) + SIN(RADIANS(#{userLatitude})) * SIN(RADIANS(latitude)))) AS distance,
         cafeName, location, tel, cafePic, latitude, longitude, cafeId
         from cafe
+        HAVING distance <![CDATA[ <= ]]> 1000
 
+    </select>
+
+    <select id="searchCafe">
+        select
+        ROUND(6371000  * ACOS(COS(RADIANS(#{userLatitude})) * COS(RADIANS(latitude)) * COS(RADIANS(longitude) - RADIANS(#{userLongitude})) + SIN(RADIANS(#{userLatitude})) * SIN(RADIANS(latitude)))) AS distance,
+        cafeName, location, tel, cafePic, cafeId
+        from cafe
+        WHERE
+        <if test="searchLocation != null and searchLocation != ''">
+            location LIKE '%${searchLocation}%'
+        </if>
+        <if test="searchCafeName != null and searchCafeName != ''">
+            cafeName Like '%${searchCafeName}%'
+        </if>
+        HAVING distance <![CDATA[ <= ]]> #{maxDistance}
     </select>
 
 </mapper>
