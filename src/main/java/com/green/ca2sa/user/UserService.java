@@ -1,5 +1,6 @@
 package com.green.ca2sa.user;
 
+
 import com.green.ca2sa.user.model.*;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -22,9 +23,7 @@ public class UserService {
 
         p.setUpw(hashPassword);
 
-        int result=mapper.postUserSignUp(p);
-
-        return result;
+        return mapper.postUserSignUp(p);
     }
 
     public int getUserEmailCheck(String email){
@@ -58,10 +57,9 @@ public class UserService {
     }
 
     public UserInfoGetRes getUserInfo(long userId){
-        UserInfoGetRes res=mapper.getUserInfo(userId);
 
 
-        return res;
+        return mapper.getUserInfo(userId);
 
     }
 
@@ -79,33 +77,21 @@ public class UserService {
 //        p.setUpw(hashedPassword); 비밀번호는 수정못하는걸로 간다. 프론트에서 어렵다 함.
 
 
-        int result=mapper.updateUserInfo(p);
-
-
-        return result;
+        return mapper.updateUserInfo(p);
     }
 
     public int deleteUserInfo(long userId){
 
-        int result=mapper.deleteUserInfo(userId);
-
-        return result;
+        return mapper.deleteUserInfo(userId);
     }
 
 
 
     // 카페별 거리도 보내주기.
-    public List<UserCafeInfoGetRes> getUserCafeInfo(UserLocationDto p){
+    public List<UserCafeInfoGetRes> getUserCafeInfo(UserLocationReq p){
 
 
-        List<UserCafeInfoGetRes> result=mapper.getUserCafeInfo(p);
-
-
-
-
-        return result;
+        return mapper.getUserCafeInfo(p);
 
     }
-
-
 }
