@@ -5,12 +5,11 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class CafeGetDistanceRes {
+public class CafeGetSearchRes {
     private String cafeName;
     private String location;
     private String tel;
     private String cafePic;
-    private String openTime;
-    private String closeTime;
+    private long cafeId;
     private int distance;
 }

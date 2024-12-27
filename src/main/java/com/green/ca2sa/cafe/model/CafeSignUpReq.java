@@ -5,6 +5,8 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.math.BigDecimal;
+
 @Getter
 @Setter
 public class CafeSignUpReq {
@@ -25,8 +27,8 @@ public class CafeSignUpReq {
     @Schema(title = "사업자번호", example = "12245678910", requiredMode = Schema.RequiredMode.REQUIRED)
     private String businessNumber;
     private int agree;
-    private double latitude;
-    private double longitude;
+    private BigDecimal latitude;
+    private BigDecimal longitude;
     @JsonIgnore
     private String cafePic;
     @JsonIgnore

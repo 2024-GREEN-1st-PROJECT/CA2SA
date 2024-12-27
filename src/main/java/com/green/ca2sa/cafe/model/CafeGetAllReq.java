@@ -5,16 +5,17 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.beans.ConstructorProperties;
+import java.math.BigDecimal;
 
 @Getter
 @Setter
 public class CafeGetAllReq {
     @Schema(name = "user_latitude")
-    private double userLatitude;
+    private BigDecimal userLatitude;
     @Schema(name = "user_longitude")
-    private double userLongitude;
+    private BigDecimal userLongitude;
     @ConstructorProperties({"user_latitude","user_longitude"})
-    public CafeGetAllReq(double userLatitude, double userLongitude) {
+    public CafeGetAllReq(BigDecimal userLatitude, BigDecimal userLongitude) {
         this.userLatitude = userLatitude;
         this.userLongitude = userLongitude;
     }

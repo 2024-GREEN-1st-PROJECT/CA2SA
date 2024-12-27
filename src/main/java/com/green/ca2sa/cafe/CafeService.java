@@ -10,10 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
-
-import static com.green.ca2sa.common.CafeDistance.calculateDistance;
 
 @Service
 @RequiredArgsConstructor
@@ -114,14 +111,19 @@ public class CafeService {
     }
 
     // 카페 조회
-    public CafeGetDistanceRes selCafeDistance(CafeGetDistanceReq p){
-        CafeGetDistanceRes res = cafeMapper.selCafeDistance(p);
+    public CafeGetRes selCafe(CafeGetReq p){
+        CafeGetRes res = cafeMapper.selCafe(p);
 
         return res;
     }
 
     public List<CafeGetAllRes> selAllCafe(CafeGetAllReq p){
         List<CafeGetAllRes> res = cafeMapper.selAllCafe(p);
+        return res;
+    }
+
+    public List<CafeGetSearchRes> selSearchCafe(CafeGetSearchReq p){
+        List<CafeGetSearchRes> res = cafeMapper.searchCafe(p);
         return res;
     }
 

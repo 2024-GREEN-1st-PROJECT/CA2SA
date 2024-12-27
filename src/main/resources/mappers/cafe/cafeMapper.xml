@@ -40,11 +40,6 @@
         WHERE orderId = #{orderId}
     </update>
 
-    <select id="selCafe">
-        SELECT cafeName, location, tel, cafePic, openTime, closeTime
-        FROM cafe
-        WHERE cafeId = #{cafeId}
-    </select>
     <select id="cafeEmailCheck">
         SELECT email
         FROM cafe
@@ -86,9 +81,8 @@
         GROUP BY DATE(e.createdAt)
     </select>
 
-    <select id="selCafeDistance">
+    <select id="selCafe">
         SELECT
-        ROUND(6371000  * ACOS(COS(RADIANS(#{userLatitude})) * COS(RADIANS(latitude)) * COS(RADIANS(longitude) - RADIANS(#{userLongitude})) + SIN(RADIANS(#{userLatitude})) * SIN(RADIANS(latitude)))) AS distance,
         cafeName, location, tel, cafePic, openTime, closeTime
         FROM cafe
         where cafeId = #{cafeId}
@@ -99,7 +93,23 @@
         ROUND(6371000  * ACOS(COS(RADIANS(#{userLatitude})) * COS(RADIANS(latitude)) * COS(RADIANS(longitude) - RADIANS(#{userLongitude})) + SIN(RADIANS(#{userLatitude})) * SIN(RADIANS(latitude)))) AS distance,
         cafeName, location, tel, cafePic, latitude, longitude, cafeId
         from cafe
+        HAVING distance <![CDATA[ <= ]]> 1000
 
+    </select>
+
+    <select id="searchCafe">
+        select
+        ROUND(6371000  * ACOS(COS(RADIANS(#{userLatitude})) * COS(RADIANS(latitude)) * COS(RADIANS(longitude) - RADIANS(#{userLongitude})) + SIN(RADIANS(#{userLatitude})) * SIN(RADIANS(latitude)))) AS distance,
+        cafeName, location, tel, cafePic, cafeId
+        from cafe
+        WHERE
+        <if test="searchLocation != null and searchLocation != ''">
+            location LIKE '%${searchLocation}%'
+        </if>
+        <if test="searchCafeName != null and searchCafeName != ''">
+            cafeName Like '%${searchCafeName}%'
+        </if>
+        HAVING distance <![CDATA[ <= ]]> #{maxDistance}
     </select>
 
 </mapper>

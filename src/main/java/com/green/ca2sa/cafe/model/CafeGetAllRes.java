@@ -3,6 +3,8 @@ package com.green.ca2sa.cafe.model;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.math.BigDecimal;
+
 @Getter
 @Setter
 public class CafeGetAllRes {
@@ -13,7 +15,7 @@ public class CafeGetAllRes {
     private String openTime;
     private String closeTime;
     private int distance;
-    private double latitude;
-    private double longitude;
+    private BigDecimal latitude;
+    private BigDecimal longitude;
     private long cafeId;
 }

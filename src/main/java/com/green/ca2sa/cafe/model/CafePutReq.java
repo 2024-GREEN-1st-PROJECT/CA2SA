@@ -6,6 +6,8 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 
+import java.math.BigDecimal;
+
 @Getter
 @Setter
 @ToString
@@ -24,6 +26,6 @@ public class CafePutReq {
     private String closeTime;
     @Schema(title = "카페 아아디", example = "1", requiredMode = Schema.RequiredMode.REQUIRED)
     private long cafeId;
-    private double latitude;
-    private double longitude;
+    private BigDecimal latitude;
+    private BigDecimal longitude;
 }
