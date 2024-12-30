@@ -34,8 +34,9 @@ public class CafeController {
     }
     @GetMapping("/{cafeId}")
     @Operation(summary = "카페 정보 조회")
-    public ResultResponse<CafeGetOneRes> getCafe(@ParameterObject @ModelAttribute CafeGetOneReq p) {
-        CafeGetOneRes res = cafeService.selCafe(p);
+    public ResultResponse<CafeGetOneRes> getCafe(@PathVariable Long cafeId) {
+        CafeGetOneReq req = new CafeGetOneReq(cafeId) ;
+        CafeGetOneRes res = cafeService.selCafe(req);
         return ResultResponse.<CafeGetOneRes>builder()
                 .resultData(res)
                 .resultMessage("카페 정보 조회 완료")
