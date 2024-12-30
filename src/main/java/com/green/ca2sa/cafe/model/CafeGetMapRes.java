@@ -7,7 +7,7 @@ import java.math.BigDecimal;
 
 @Getter
 @Setter
-public class CafeGetAllRes {
+public class CafeGetMapRes {
     private String cafeName;
     private String location;
     private String tel;
