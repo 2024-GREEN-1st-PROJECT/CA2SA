@@ -27,6 +27,8 @@ public class CafeSignUpReq {
     @Schema(title = "사업자번호", example = "12245678910", requiredMode = Schema.RequiredMode.REQUIRED)
     private String businessNumber;
     private int agree;
+    @Schema(title = "유저 아이디")
+    private long userId;
     private BigDecimal latitude;
     private BigDecimal longitude;
     @JsonIgnore

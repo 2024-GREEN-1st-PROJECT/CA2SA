@@ -34,17 +34,6 @@
         WHERE cafeId = #{cafeId}
     </update>
 
-    <update id="updCafeOrder">
-        UPDATE `order`
-        SET orderProgress = #{orderProgress}
-        WHERE orderId = #{orderId}
-    </update>
-
-    <select id="cafeEmailCheck">
-        SELECT email
-        FROM cafe
-        WHERE email =#{email}
-    </select>
     <insert id="insCafe" useGeneratedKeys="true" keyProperty="cafeId">
         INSERT INTO cafe
         SET
@@ -52,15 +41,9 @@
         cafeName = #{cafeName}, location = #{location}, tel = #{tel}, cafePic = #{cafePic},
         closeTime = #{closeTime}, openTime = #{openTime}, email = #{email},
         apw = #{apw}, businessNumber = #{businessNumber}, agree = #{agree},
-        latitude = #{latitude}, longitude = #{longitude}
+        latitude = #{latitude}, longitude = #{longitude} , userId = #{userId}
 
     </insert>
-
-    <select id="signInCafe">
-        SELECT cafeId, apw, email
-        FROM cafe
-        WHERE email = #{email}
-    </select>
 
     <select id="selSumPriceWeekOfDay">
         SELECT
@@ -91,7 +74,7 @@
     <select id="selAllCafe">
         select
         ROUND(6371000  * ACOS(COS(RADIANS(#{userLatitude})) * COS(RADIANS(latitude)) * COS(RADIANS(longitude) - RADIANS(#{userLongitude})) + SIN(RADIANS(#{userLatitude})) * SIN(RADIANS(latitude)))) AS distance,
-        cafeName, location, tel, cafePic, latitude, longitude, cafeId
+        cafeName, location, tel, cafePic, latitude, longitude, cafeId, openTime, closeTime
         from cafe
         HAVING distance <![CDATA[ <= ]]> 1000
 
@@ -100,11 +83,13 @@
     <select id="searchCafe">
         select
         ROUND(6371000  * ACOS(COS(RADIANS(#{userLatitude})) * COS(RADIANS(latitude)) * COS(RADIANS(longitude) - RADIANS(#{userLongitude})) + SIN(RADIANS(#{userLatitude})) * SIN(RADIANS(latitude)))) AS distance,
-        cafeName, location, tel, cafePic, cafeId
-        from cafe
+        cafeName, location, tel, cafePic, a.cafeId
+        from cafe a
+        join menu b
+        on a.cafeId = b.cafeId
         WHERE
-        <if test="searchLocation != null and searchLocation != ''">
-            location LIKE '%${searchLocation}%'
+        <if test="searchMenuName != null and searchMenuName != ''">
+            menuName LIKE '%${searchMenuName}%'
         </if>
         <if test="searchCafeName != null and searchCafeName != ''">
             cafeName Like '%${searchCafeName}%'
