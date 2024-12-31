@@ -35,7 +35,7 @@ public class CafeMenuController {
 
     @GetMapping("option")
     @Operation(summary = "카페 선택한 메뉴 옵션 조회")
-    public ResultResponse<List<CafeGetOptionRes>> getCafeOption(@ParameterObject CafeGetOptionReq p) {
+    public ResultResponse<List<CafeGetOptionRes>> getCafeMenuOption(@ParameterObject CafeGetOptionReq p) {
      List<CafeGetOptionRes> res = cafeMenuService.selCafeMenuOption(p);
 
      return ResultResponse.<List<CafeGetOptionRes>>builder()

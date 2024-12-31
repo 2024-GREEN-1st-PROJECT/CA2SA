@@ -88,26 +88,28 @@
         where cafeId = #{cafeId}
     </select>
 
-    <select id="selAllCafe">
+    <select id="selCafeMap">
         select
         ROUND(6371000  * ACOS(COS(RADIANS(#{userLatitude})) * COS(RADIANS(latitude)) * COS(RADIANS(longitude) - RADIANS(#{userLongitude})) + SIN(RADIANS(#{userLatitude})) * SIN(RADIANS(latitude)))) AS distance,
-        cafeName, location, tel, cafePic, latitude, longitude, cafeId
+        cafeName, location, tel, cafePic, latitude, longitude, cafeId, openTime, closeTime
         from cafe
         HAVING distance <![CDATA[ <= ]]> 1000
 
     </select>
 
     <select id="searchCafe">
-        select
+        SELECT
         ROUND(6371000  * ACOS(COS(RADIANS(#{userLatitude})) * COS(RADIANS(latitude)) * COS(RADIANS(longitude) - RADIANS(#{userLongitude})) + SIN(RADIANS(#{userLatitude})) * SIN(RADIANS(latitude)))) AS distance,
-        cafeName, location, tel, cafePic, cafeId
-        from cafe
+        a.cafeName, a.location, a.tel, a.cafePic, A.cafeId
+        FROM cafe A
+        JOIN menu B
+        ON a.cafeId = b.cafeId
         WHERE
-        <if test="searchLocation != null and searchLocation != ''">
-            location LIKE '%${searchLocation}%'
+        <if test="searchMenuName != null and searchMenuName != ''">
+            b.menuName LIKE '%${searchMenuName}%'
         </if>
         <if test="searchCafeName != null and searchCafeName != ''">
-            cafeName Like '%${searchCafeName}%'
+            a.cafeName Like '%${searchCafeName}%'
         </if>
         HAVING distance <![CDATA[ <= ]]> #{maxDistance}
     </select>

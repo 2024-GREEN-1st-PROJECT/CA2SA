@@ -13,6 +13,6 @@ public interface CafeMapper {
     CafeSignInRes signInCafe(String email);
     List<CafeGetSalesDto> selSumPriceWeekOfDay(CafeGetSalesReq p);
     CafeGetRes selCafe(CafeGetReq p);
-    List<CafeGetAllRes> selAllCafe(CafeGetAllReq p);
+    List<CafeGetMapRes> selCafeMap(CafeGetMapReq p);
     List<CafeGetSearchRes> searchCafe(CafeGetSearchReq p);
 }

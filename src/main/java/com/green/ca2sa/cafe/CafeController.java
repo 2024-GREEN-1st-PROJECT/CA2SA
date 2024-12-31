@@ -56,9 +56,9 @@ public class CafeController {
     }
     @GetMapping("map")
     @Operation(summary = "지도에서 모든 카페 조회")
-    public ResultResponse<List<CafeGetAllRes>> getAllCafe(@ParameterObject @ModelAttribute CafeGetAllReq p){
-        List<CafeGetAllRes> res = cafeService.selAllCafe(p);
-        return ResultResponse.<List<CafeGetAllRes>>builder()
+    public ResultResponse<List<CafeGetMapRes>> getCafeMap(@ParameterObject @ModelAttribute CafeGetMapReq p){
+        List<CafeGetMapRes> res = cafeService.selCafeMap(p);
+        return ResultResponse.<List<CafeGetMapRes>>builder()
                 .resultData(res)
                 .resultMessage("조회 완료")
                 .build();
@@ -85,7 +85,7 @@ public class CafeController {
     @GetMapping("search")
     @Operation(summary = "카페 검색")
     public ResultResponse<List<CafeGetSearchRes>> getCafeSearch(@ParameterObject @ModelAttribute CafeGetSearchReq p) {
-        List<CafeGetSearchRes> res = cafeService.selSearchCafe(p);
+        List<CafeGetSearchRes> res = cafeService.selCafeSearch(p);
         return ResultResponse.<List<CafeGetSearchRes>>builder()
                 .resultData(res)
                 .resultMessage("조회 완료")

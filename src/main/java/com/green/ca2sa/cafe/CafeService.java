@@ -114,17 +114,32 @@ public class CafeService {
     // 카페 조회
     public CafeGetRes selCafe(CafeGetReq p){
         CafeGetRes res = cafeMapper.selCafe(p);
-        res.setCafePic(PicUrlMaker.makePicUrl(res.getCafeId(), res.getCafePic()));
+        long cafeId = p.getCafeId();
+        String picName = res.getCafePic();
+        String picUrl = String.format("112.222.157.156:5214/pic/cafe/%d/%s",cafeId,picName);
+        res.setCafePic(picUrl);
         return res;
     }
 
-    public List<CafeGetAllRes> selAllCafe(CafeGetAllReq p){
-        List<CafeGetAllRes> res = cafeMapper.selAllCafe(p);
+    public List<CafeGetMapRes> selCafeMap(CafeGetMapReq p){
+        List<CafeGetMapRes> res = cafeMapper.selCafeMap(p);
+        for(CafeGetMapRes c : res){
+            long cafeId = c.getCafeId();
+            String picName = c.getCafePic();
+            String picUrl = String.format("112.222.157.156:5214/pic/cafe/%d/%s",cafeId,picName);
+            c.setCafePic(picUrl);
+        }
         return res;
     }
 
-    public List<CafeGetSearchRes> selSearchCafe(CafeGetSearchReq p){
+    public List<CafeGetSearchRes> selCafeSearch(CafeGetSearchReq p){
         List<CafeGetSearchRes> res = cafeMapper.searchCafe(p);
+        for(CafeGetSearchRes c : res){
+            long cafeId = c.getCafeId();
+            String picName = c.getCafePic();
+            String picUrl = String.format("112.222.157.156:5214/pic/cafe/%d/%s",cafeId,picName);
+            c.setCafePic(picUrl);
+        }
         return res;
     }
 

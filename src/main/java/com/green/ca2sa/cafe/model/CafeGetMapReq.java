@@ -9,13 +9,13 @@ import java.math.BigDecimal;
 
 @Getter
 @Setter
-public class CafeGetAllReq {
+public class CafeGetMapReq {
     @Schema(name = "user_latitude")
     private BigDecimal userLatitude;
     @Schema(name = "user_longitude")
     private BigDecimal userLongitude;
     @ConstructorProperties({"user_latitude","user_longitude"})
-    public CafeGetAllReq(BigDecimal userLatitude, BigDecimal userLongitude) {
+    public CafeGetMapReq(BigDecimal userLatitude, BigDecimal userLongitude) {
         this.userLatitude = userLatitude;
         this.userLongitude = userLongitude;
     }
