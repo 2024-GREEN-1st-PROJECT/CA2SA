@@ -156,9 +156,9 @@ public class MenuService {
         return mapper.deleteMenuInfo(p);
     }
 
-    public MenuDetailGetRes getMenuDetailInfo(MenuDetailGetReq p) {
+    public MenuDetailGetRes getMenuDetailInfo(long menuId) {
 
-        MenuDetailGetRes detailGetRes= mapper.getMenuDetail(p);
+        MenuDetailGetRes detailGetRes= mapper.getMenuDetail(menuId);
         detailGetRes.setMenuPic(PicUrlMaker.makePicUrl(detailGetRes.getCafeId(), detailGetRes.getMenuId(), detailGetRes.getMenuPic()));
 
         return detailGetRes;

@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.*;
 @Tag(name = "메뉴 옵션 관리", description = "메뉴 옵션 등록")
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("menu/option")
+@RequestMapping("cafe/menu/option")
 public class MenuOptionController {
     private final MenuOptionService service;
 

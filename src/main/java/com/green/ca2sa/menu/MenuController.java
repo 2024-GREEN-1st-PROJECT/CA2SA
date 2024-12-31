@@ -10,15 +10,15 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
+import java.util.Locale;
 
 @Tag(name = "메뉴 관리", description = "메뉴 등록, 메뉴 불러오기, 수정, 삭제")
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("menu")
 public class MenuController {
     private final MenuService service;
 
-    @PostMapping
+    @PostMapping("cafe/menu")
     @Operation(summary = "Menu 등록하기")
     public ResultResponse<Integer> postMenuInfo(@RequestPart(required = false) MultipartFile pic, @RequestPart MenuPostReq p) {
         try {
@@ -34,7 +34,7 @@ public class MenuController {
         }
     }
 
-    @GetMapping
+    @GetMapping("menu")
     @Operation(summary = "Menu 가져오기")
     public ResultResponse< List<MenuGetRes>> getMenuInfo(@ParameterObject @ModelAttribute MenuGetReq p) {
         List<MenuGetRes> result = service.getMenuInfo(p);
@@ -44,17 +44,17 @@ public class MenuController {
                 .build();
     }
 
-    @GetMapping("detail")
+    @GetMapping("menu/{menuId}")
     @Operation(summary = "Menu 상세 정보 불러오기")
-    public ResultResponse<MenuDetailGetRes> getMenuDetailInfo(@ParameterObject @ModelAttribute MenuDetailGetReq p) {
-        MenuDetailGetRes result = service.getMenuDetailInfo(p);
+    public ResultResponse<MenuDetailGetRes> getMenuDetailInfo(@PathVariable long menuId) {
+        MenuDetailGetRes result = service.getMenuDetailInfo(menuId);
         return ResultResponse.<MenuDetailGetRes>builder()
                 .resultMessage("메뉴 상세 정보 출력 완료")
                 .resultData(result)
                 .build();
     }
 
-    @PutMapping
+    @PutMapping("cafe/menu")
     @Operation(summary = "Menu 수정하기")
     public ResultResponse<Integer> updateMenuInfo(@RequestPart(required = false) MultipartFile pic, @RequestPart MenuPutReq p) {
         int result = service.updateMenuInfo(pic, p);
@@ -64,7 +64,7 @@ public class MenuController {
                 .build();
     }
 
-    @DeleteMapping
+    @DeleteMapping("cafe/menu")
     @Operation(summary = "Menu 삭제하기", description = "메뉴의 옵션 모두 삭제 처리")
     public ResultResponse<Integer> deleteMenuInfo(@ParameterObject @ModelAttribute MenuDelReq p) {
         Integer result = service.deleteMenuInfo(p);
