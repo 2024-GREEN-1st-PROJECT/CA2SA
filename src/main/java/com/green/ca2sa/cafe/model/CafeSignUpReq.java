@@ -20,13 +20,8 @@ public class CafeSignUpReq {
     private String openTime;
     @Schema(title = "마감 시간", example = "21:00", requiredMode = Schema.RequiredMode.REQUIRED)
     private String closeTime;
-    @Schema(title = "카페 이메일", example = "green502@gmail.com", requiredMode = Schema.RequiredMode.REQUIRED)
-    private String email;
-    @Schema(title = "관리자 비빌번호", example = "1717", requiredMode = Schema.RequiredMode.REQUIRED)
-    private String apw;
     @Schema(title = "사업자번호", example = "12245678910", requiredMode = Schema.RequiredMode.REQUIRED)
     private String businessNumber;
-    private int agree;
     @Schema(title = "유저 아이디")
     private long userId;
     private BigDecimal latitude;
