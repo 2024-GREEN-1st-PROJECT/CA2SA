@@ -32,42 +32,12 @@ public class CafeController {
                 .resultData(res)
                 .build();
     }
-
-    @PostMapping("sign-in")
-    @Operation(summary = "카페관리 로그인")
-    public ResultResponse<CafeSignInRes> cafeSignIn(@RequestBody CafeSignInReq p){
-        CafeSignInRes res = cafeService.signInCafe(p);
-
-        log.info("p msg 확인용: {}",p);
-        return ResultResponse.<CafeSignInRes>builder()
-                .resultData(res)
-                .resultMessage(res.getMsg())
-                .build();
-    }
-
-    @PostMapping("email")
-    @Operation(summary = "카페 이메일 중복확인")
-    public ResultResponse<Integer> checkEmail(@RequestBody CafeCheckEmailPostReq p) {
-        int res = cafeService.signUpEmailCheck(p);
-        return ResultResponse.<Integer>builder()
-                .resultData(res)
-                .resultMessage(res == 0 ? "중복된 이메일입니다." : "이메일 확인 완료")
-                .build();
-    }
-    @GetMapping("map")
-    @Operation(summary = "지도에서 모든 카페 조회")
-    public ResultResponse<List<CafeGetAllRes>> getAllCafe(@ParameterObject @ModelAttribute CafeGetAllReq p){
-        List<CafeGetAllRes> res = cafeService.selAllCafe(p);
-        return ResultResponse.<List<CafeGetAllRes>>builder()
-                .resultData(res)
-                .resultMessage("조회 완료")
-                .build();
-    }
-    @GetMapping
+    @GetMapping("/{cafeId}")
     @Operation(summary = "카페 정보 조회")
-    public ResultResponse<CafeGetRes> getCafe(@ParameterObject @ModelAttribute CafeGetReq p) {
-        CafeGetRes res = cafeService.selCafe(p);
-        return ResultResponse.<CafeGetRes>builder()
+    public ResultResponse<CafeGetOneRes> getCafe(@PathVariable Long cafeId) {
+        CafeGetOneReq req = new CafeGetOneReq(cafeId) ;
+        CafeGetOneRes res = cafeService.selCafe(req);
+        return ResultResponse.<CafeGetOneRes>builder()
                 .resultData(res)
                 .resultMessage("카페 정보 조회 완료")
                 .build();
@@ -82,18 +52,18 @@ public class CafeController {
                 .build();
     }
 
-    @GetMapping("search")
-    @Operation(summary = "카페 검색")
-    public ResultResponse<List<CafeGetSearchRes>> getCafeSearch(@ParameterObject @ModelAttribute CafeGetSearchReq p) {
-        List<CafeGetSearchRes> res = cafeService.selSearchCafe(p);
-        return ResultResponse.<List<CafeGetSearchRes>>builder()
+    @GetMapping
+    @Operation(summary = "여러 카페 조회")
+    public ResultResponse<List<CafeGetRes>> getCafeSearch(@ParameterObject @ModelAttribute CafeGetReq p) {
+        List<CafeGetRes> res = cafeService.selSearchCafe(p);
+        return ResultResponse.<List<CafeGetRes>>builder()
                 .resultData(res)
                 .resultMessage("조회 완료")
                 .build();
     }
 
 
-    @PatchMapping
+    @PutMapping
     @Operation(summary = "카페 정보 수정")
     public ResultResponse<Integer> patchCafe(@RequestPart(required = false) MultipartFile pic,
                                              @RequestPart CafePutReq p){

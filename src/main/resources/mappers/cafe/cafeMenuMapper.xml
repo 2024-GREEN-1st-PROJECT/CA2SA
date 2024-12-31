@@ -8,12 +8,4 @@
         FROM menu
         WHERE cafeId = #{cafeId}
     </select>
-
-    <select id="selCafeMenuOption">
-        SELECT b.optionName, b.addPrice, b.required, a.menuName
-        FROM menu A
-        JOIN menu_option B
-        ON a.menuId = b.menuId
-        WHERE a.menuId = #{menuId}
-    </select>
 </mapper>

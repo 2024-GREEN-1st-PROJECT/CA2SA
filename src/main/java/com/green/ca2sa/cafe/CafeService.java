@@ -24,8 +24,6 @@ public class CafeService {
     // 카페 회원 가입
     public int signUpCafe(MultipartFile pic, CafeSignUpReq p){
         String fileName = pic != null ? myFileUtils.makeRandomFileName(pic) : null;
-        String hasPwd = BCrypt.hashpw(p.getApw(), BCrypt.gensalt());
-        p.setApw(hasPwd);
         p.setCafePic(fileName);
         int res = cafeMapper.insCafe(p);
         long cafeId = p.getCafeId();
@@ -42,25 +40,6 @@ public class CafeService {
         }
         return res;
     }
-
-    // 카페 로그인
-    public CafeSignInRes signInCafe(CafeSignInReq p){
-        String email = p.getEmail();
-        CafeSignInRes res = cafeMapper.signInCafe(email);
-        if(res == null){
-            res = new CafeSignInRes();
-            res.setMsg("이메일이 다릅니다.");
-            return res;
-        }
-        if(!BCrypt.checkpw(p.getApw(), res.getApw())){
-            res = new CafeSignInRes();
-            res.setMsg("비밀번호가 다릅니다.");
-            return res;
-        }
-        res.setMsg("로그인 성공");
-        return res;
-    }
-
 
     // 카페 정보 변경
     @Transactional
@@ -90,13 +69,6 @@ public class CafeService {
         return result;
     }
 
-    // 카페 이메일 중복확인
-    public int signUpEmailCheck(CafeCheckEmailPostReq p){
-        if(cafeMapper.cafeEmailCheck(p.getEmail())==null){
-            return 1;
-        }
-        return 0;
-    }
 
     // 카페 판매액 조회
     public CafeGetSalesRes selCafeSales(CafeGetSalesReq p){
@@ -112,19 +84,20 @@ public class CafeService {
     }
 
     // 카페 조회
-    public CafeGetRes selCafe(CafeGetReq p){
-        CafeGetRes res = cafeMapper.selCafe(p);
-        res.setCafePic(PicUrlMaker.makePicUrl(res.getCafeId(), res.getCafePic()));
+    public CafeGetOneRes selCafe(CafeGetOneReq p){
+        CafeGetOneRes res = cafeMapper.selCafe(p);
+
         return res;
     }
 
-    public List<CafeGetAllRes> selAllCafe(CafeGetAllReq p){
-        List<CafeGetAllRes> res = cafeMapper.selAllCafe(p);
-        return res;
-    }
 
-    public List<CafeGetSearchRes> selSearchCafe(CafeGetSearchReq p){
-        List<CafeGetSearchRes> res = cafeMapper.searchCafe(p);
+    public List<CafeGetRes> selSearchCafe(CafeGetReq p){
+        List<CafeGetRes> res;
+        if(p.getSearchCafeName()!= null || p.getSearchMenuName()!= null){
+            res = cafeMapper.searchCafe(p);
+        } else {
+            res = cafeMapper.selAllCafe(p);
+        }
         return res;
     }
 

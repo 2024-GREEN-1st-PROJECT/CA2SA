@@ -7,5 +7,10 @@
         update `order`
         set orderProgress = #{orderProgress}
         where orderId = #{orderId}
+        AND cafeId IN (
+        SELECT cafeId
+        FROM cafe
+        WHERE userId = #{userId}
+        )
     </update>
 </mapper>
