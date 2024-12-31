@@ -55,9 +55,9 @@ public class MenuController {
     // getMenuDetailInfo 완료됨
     @GetMapping("detail")
     @Operation(summary = "Menu 상세 정보 불러오기")
-    public ResultResponse<List<MenuDetailGetRes>> getMenuDetailInfo(@ParameterObject @ModelAttribute MenuDetailGetReq p) {
-        List<MenuDetailGetRes> result = service.getMenuDetailInfo(p);
-        return ResultResponse.<List<MenuDetailGetRes>>builder()
+    public ResultResponse<MenuDetailGetRes> getMenuDetailInfo(@ParameterObject @ModelAttribute MenuDetailGetReq p) {
+        MenuDetailGetRes result = service.getMenuDetailInfo(p);
+        return ResultResponse.<MenuDetailGetRes>builder()
                 .resultMessage("메뉴 상세 정보 출력 완료")
                 .resultData(result)
                 .build();

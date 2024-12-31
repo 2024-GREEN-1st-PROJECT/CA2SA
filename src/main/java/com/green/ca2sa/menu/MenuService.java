@@ -160,9 +160,16 @@ public class MenuService {
     }
 
     @Transactional
-    public List<MenuDetailGetRes> getMenuDetailInfo(MenuDetailGetReq p) {
+    public MenuDetailGetRes getMenuDetailInfo(MenuDetailGetReq p) {
 
-        return mapper.getMenuDetailInfo(p);
+        List<MenuDetailGetDto> detailList=mapper.getMenuDetailInfo(p);
+
+        MenuDetailGetRes detailGetRes= mapper.getMenuDetail(p);
+
+        detailGetRes.setDetailList(detailList);
+
+        return detailGetRes;
+
     }
 
 
