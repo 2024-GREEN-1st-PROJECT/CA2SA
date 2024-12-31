@@ -42,15 +42,6 @@ public class CafeController {
                 .resultMessage("카페 정보 조회 완료")
                 .build();
     }
-    @GetMapping("sales")
-    @Operation(summary = "카페 판매액 조회")
-    public ResultResponse<CafeGetSalesRes> getCafeSales(@ParameterObject @ModelAttribute CafeGetSalesReq p) {
-        CafeGetSalesRes res = cafeService.selCafeSales(p);
-        return ResultResponse.<CafeGetSalesRes>builder()
-                .resultData(res)
-                .resultMessage("조회 완료")
-                .build();
-    }
 
     @GetMapping
     @Operation(summary = "여러 카페 조회")

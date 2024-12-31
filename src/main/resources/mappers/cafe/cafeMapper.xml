@@ -44,25 +44,6 @@
 
     </insert>
 
-    <select id="selSumPriceWeekOfDay">
-        SELECT
-        DATE(e.createdAt) AS orderDate,
-        SUM(a.count * (b.price + d.addprice)) AS daySumPrice
-        FROM order_menu a
-        LEFT JOIN menu b
-        ON a.menuId = b.menuId
-        LEFT JOIN order_menu_option c
-        ON a.orderMenuId = c.orderMenuId
-        LEFT JOIN menu_option d
-        ON c.menuOptionId = d.menuOptionId
-        LEFT JOIN `order` e
-        ON e.orderId = a.orderId
-        WHERE e.createdAt BETWEEN #{daysAgo} AND '${today} 23:59:59'
-        AND e.cafeId = #{cafeId}
-        AND e.orderProgress = #{orderProgress}
-        GROUP BY DATE(e.createdAt)
-    </select>
-
     <select id="selCafe">
         SELECT
         cafeId, cafeName, location, tel, cafePic, openTime, closeTime

@@ -1,9 +1,9 @@
 package com.green.ca2sa.user;
 
+
+import com.green.ca2sa.user.model.UserSpentReq;
 import com.green.ca2sa.user.model.*;
 import org.apache.ibatis.annotations.Mapper;
-
-import java.util.List;
 
 @Mapper
 public interface UserMapper {
@@ -14,5 +14,6 @@ public interface UserMapper {
     UserInfoPutDto updateCheckUpwInfo(UserInfoPutReq p);
     int deleteUserInfo(UserInfoDelReq p);
     UserInfoDelDto deleteUpwCheck(UserInfoDelReq p);
+    UserSpentRes selUserSpent(UserSpentReq p);
 
 }

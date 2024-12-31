@@ -67,18 +67,6 @@ public class CafeService {
     }
 
 
-    // 카페 판매액 조회
-    public CafeGetSalesRes selCafeSales(CafeGetSalesReq p){
-        List<CafeGetSalesDto> cafeGetSalesDtoList = cafeMapper.selSumPriceWeekOfDay(p);
-        int weekSum = 0;
-        for(CafeGetSalesDto c : cafeGetSalesDtoList){
-            weekSum += c.getDaySumPrice();
-        }
-        CafeGetSalesRes res = new CafeGetSalesRes();
-        res.setWeekSumPrice(weekSum);
-        res.setSelWeek(cafeGetSalesDtoList);
-        return res;
-    }
 
     // 카페 조회
     public CafeGetOneRes selCafe(CafeGetOneReq p){
