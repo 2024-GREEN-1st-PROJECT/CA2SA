@@ -27,11 +27,15 @@
     </select>
 
     <select id="getMenuDetailInfo">
-        SELECT a.menuName,a.price,a.comment,a.menuPic,b.optionName,b.addPrice
-        FROM menu a
-        LEFT JOIN menu_option b
-        on a.menuId=b.menuId
-        WHERE a.menuId=#{menuId}
+        SELECT menuOptionId,optionName,addPrice
+        FROM menu_option
+        WHERE menuId=#{menuId}
+    </select>
+
+    <select id="getMenuDetail">
+        SELECT menuName,price,comment,menuPic
+        FROM menu
+        WHERE menuId=#{menuId}
     </select>
 
     <update id = "updateMenuInfo">
@@ -63,4 +67,6 @@
         WHERE menuId = #{menuId}
         AND cafeId=#{cafeId}
     </delete>
+
+
 </mapper>

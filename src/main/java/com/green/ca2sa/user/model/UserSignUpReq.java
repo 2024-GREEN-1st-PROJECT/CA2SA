@@ -14,6 +14,5 @@ public class UserSignUpReq {
     private String upw;
     @Schema(title = "닉네임",example = "홍길동")
     private String nickName;
-    @Schema(title = "약관동의",example = "1",requiredMode = Schema.RequiredMode.REQUIRED)
-    private int agree;
+
 }
