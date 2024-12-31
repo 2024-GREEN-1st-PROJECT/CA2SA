@@ -18,11 +18,17 @@ public class MenuOptionController {
     @PostMapping
     @Operation(summary = "Menu 옵션 등록")
     public ResultResponse<Integer> postMenuOptionInfo(@RequestBody MenuOptionPostReq p) {
+        try {
         Integer result = service.postMenuOptionInfo(p);
         return ResultResponse.<Integer>builder()
                 .resultMessage("메뉴 옵션 등록 완료")
                 .resultData(result)
                 .build();
+        } catch (IllegalArgumentException e) {
+            return ResultResponse.<Integer>builder()
+                    .resultMessage(e.getMessage())
+                    .build();
+        }
     }
 
     @PutMapping

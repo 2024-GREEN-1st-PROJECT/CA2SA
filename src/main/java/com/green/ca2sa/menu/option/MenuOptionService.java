@@ -13,6 +13,10 @@ public class MenuOptionService {
     public int postMenuOptionInfo(MenuOptionPostReq p) {
         int result = mapper.postMenuOptionInfo(p);
         p.getMenuOptionId();
+        int exists = mapper.existsMenuOption(p.getMenuId(), p.getOptionName());
+        if (exists > 0) {
+            throw new IllegalArgumentException("이미 존재하는 옵션입니다.");
+        }
         return result;
     }
 
