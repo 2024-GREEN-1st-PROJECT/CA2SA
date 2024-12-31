@@ -3,6 +3,8 @@ package com.green.ca2sa.menu.model;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.List;
+
 @Getter
 @Setter
 public class MenuDetailGetRes {
@@ -10,6 +12,5 @@ public class MenuDetailGetRes {
     private int price;
     private String comment;
     private String menuPic;
-    private String optionName;
-    private int addPrice;
+    private List<MenuDetailGetDto> detailList;
 }
