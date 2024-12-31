@@ -10,9 +10,9 @@ public interface UserMapper {
     int postUserSignUp(UserSignUpReq p);
     UserSignUpEmailCheckRes getUserEmailCheck(String email);
     UserSingInRes postUserSingIn(UserSignInReq p);
-    UserInfoGetRes getUserInfo(long userId);
     int updateUserInfo(UserInfoPutReq p);
     UserInfoPutDto updateCheckUpwInfo(UserInfoPutReq p);
-    int deleteUserInfo(long userId);
-    List<UserCafeInfoGetRes> getUserCafeInfo(UserLocationReq p);
+    int deleteUserInfo(UserInfoDelReq p);
+    UserInfoDelDto deleteUpwCheck(UserInfoDelReq p);
+
 }

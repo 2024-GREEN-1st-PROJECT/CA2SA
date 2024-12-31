@@ -55,16 +55,7 @@ public class UserController {
                 .build();
     }
 
-    @GetMapping("info")
-    @Operation(summary = "회원정보 확인")
-    public ResultResponse<UserInfoGetRes> getUserInfo(@RequestParam long userId){
-        UserInfoGetRes res= service.getUserInfo(userId);
 
-        return ResultResponse.<UserInfoGetRes>builder()
-                .resultMessage(res==null?"회원정보가 없습니다":"회원 정보 조회 완료")
-                .resultData(res)
-                .build();
-    }
 
     @PutMapping("info")
     @Operation(summary = "회원정보 수정")
@@ -79,28 +70,16 @@ public class UserController {
 
     @DeleteMapping
     @Operation(summary = "회원정보 삭제")
-    public ResultResponse<Integer> deleteUserInfo(@RequestParam long userId){
-        int result=service.deleteUserInfo(userId);
+    public ResultResponse<Integer> deleteUserInfo(@RequestBody UserInfoDelReq p){
+        int result=service.deleteUserInfo(p);
 
         return ResultResponse.<Integer>builder()
-                .resultMessage("회원정보 삭제 완료")
+                .resultMessage(result==1?"회원정보 삭제 완료":"비밀번호가 틀립니다")
                 .resultData(result)
                 .build();
 
     }
 
-    @GetMapping
-    @Operation(summary = "카페 정보 전체 출력")
-    public ResultResponse<List<UserCafeInfoGetRes>> getUserCafeInfo(@ParameterObject @ModelAttribute UserLocationReq p) {
 
-        List<UserCafeInfoGetRes> result = service.getUserCafeInfo(p);
-
-
-        return ResultResponse.<List<UserCafeInfoGetRes>>builder()
-                .resultMessage("카페 정보 출력 완료")
-                .resultData(result)
-                .build();
-
-    }
 
 }

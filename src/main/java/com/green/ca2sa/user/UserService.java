@@ -56,12 +56,7 @@ public class UserService {
 
     }
 
-    public UserInfoGetRes getUserInfo(long userId){
 
-
-        return mapper.getUserInfo(userId);
-
-    }
 
     public int updateUserInfo(UserInfoPutReq p){
 
@@ -80,18 +75,19 @@ public class UserService {
         return mapper.updateUserInfo(p);
     }
 
-    public int deleteUserInfo(long userId){
+    public int deleteUserInfo(UserInfoDelReq p){
+        UserInfoDelDto dto=mapper.deleteUpwCheck(p); // 비밀번호 체크하기 위한 객체
 
-        return mapper.deleteUserInfo(userId);
+        if(!BCrypt.checkpw(p.getUpw(), dto.getUpw())){
+            return 0;
+        }
+
+
+
+        return mapper.deleteUserInfo(p);
     }
 
 
 
-    // 카페별 거리도 보내주기.
-    public List<UserCafeInfoGetRes> getUserCafeInfo(UserLocationReq p){
 
-
-        return mapper.getUserCafeInfo(p);
-
-    }
 }
