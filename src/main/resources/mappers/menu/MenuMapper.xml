@@ -27,6 +27,7 @@
     </select>
 
     <select id="getMenuDetailInfo">
+
         SELECT menuOptionId,optionName,addPrice
         FROM menu_option
         WHERE menuId=#{menuId}
@@ -65,8 +66,6 @@
         DELETE
         FROM menu
         WHERE menuId = #{menuId}
-        AND cafeId=#{cafeId}
+        AND cafeId = #{cafeId}
     </delete>
-
-
 </mapper>

@@ -151,8 +151,6 @@ public class MenuService {
     @Transactional
     public int deleteMenuInfo(MenuDelReq p) {
 
-        optionMapper.deleteMenuOption(p.getMenuId());
-
         String deletePath = String.format("cafe/%d/menu/%d/%d", p.getCafeId(), p.getCategoryId(), p.getMenuId());
         myFileUtils.deleteFolder(deletePath, true);
 
@@ -171,6 +169,4 @@ public class MenuService {
         return detailGetRes;
 
     }
-
-
 }
