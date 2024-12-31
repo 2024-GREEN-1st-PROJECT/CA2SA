@@ -1,5 +1,7 @@
 package com.green.ca2sa.user;
 
+import com.green.ca2sa.user.model.UserSpentReq;
+import com.green.ca2sa.user.model.UserSpentRes;
 import com.green.ca2sa.common.model.ResultResponse;
 import com.green.ca2sa.user.model.*;
 import io.swagger.v3.oas.annotations.Operation;
@@ -8,8 +10,6 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springdoc.core.annotations.ParameterObject;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 
 @RestController
 @RequestMapping("user")
@@ -79,7 +79,15 @@ public class UserController {
                 .build();
 
     }
-
+    @GetMapping("used")
+    @Operation(summary = "사용금액 조회")
+    public ResultResponse<UserSpentRes> getUserMonthSpent(@ParameterObject @ModelAttribute UserSpentReq p) {
+        UserSpentRes res = service.selUserSpent(p);
+        return ResultResponse.<UserSpentRes>builder()
+                .resultData(res)
+                .resultMessage("조회 완료")
+                .build();
+    }
 
 
 }

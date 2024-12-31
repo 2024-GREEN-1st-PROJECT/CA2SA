@@ -1,14 +1,15 @@
 package com.green.ca2sa.user;
 
 
+
+import com.green.ca2sa.user.model.UserSpentReq;
+import com.green.ca2sa.user.model.UserSpentRes;
 import com.green.ca2sa.user.model.*;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.mindrot.jbcrypt.BCrypt;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
-import java.util.List;
 
 @Service
 @RequiredArgsConstructor
@@ -87,6 +88,10 @@ public class UserService {
         return mapper.deleteUserInfo(p);
     }
 
+    public UserSpentRes selUserSpent(UserSpentReq p){
+        UserSpentRes res = mapper.selUserSpent(p);
+        return res;
+    }
 
 
 
