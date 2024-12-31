@@ -22,10 +22,4 @@
         WHERE menuId = #{menuId}
         AND menuOptionId = #{menuOptionId}
     </update>
-
-   <delete id = "deleteMenuOption">
-        DELETE
-        FROM menu_option
-        WHERE menuId = #{menuId}
-    </delete>
 </mapper>
