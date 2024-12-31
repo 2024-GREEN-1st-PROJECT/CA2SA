@@ -19,7 +19,6 @@
                 addPrice = #{addPrice}
             </if>
         </set>
-        WHERE menuId = #{menuId}
-        AND menuOptionId = #{menuOptionId}
+        WHERE menuOptionId = #{menuOptionId}
     </update>
 </mapper>

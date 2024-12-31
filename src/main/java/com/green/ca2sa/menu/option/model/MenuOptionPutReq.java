@@ -7,7 +7,6 @@ import lombok.Setter;
 @Setter
 @Getter
 public class MenuOptionPutReq {
-    private long menuId;
     private long menuOptionId;
     @Schema(title = "옵션 이름", example = "아이스", requiredMode = Schema.RequiredMode.REQUIRED)
     private String optionName;
