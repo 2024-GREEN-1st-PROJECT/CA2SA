@@ -83,7 +83,7 @@
 
     <select id="selCafe">
         SELECT
-        cafeName, location, tel, cafePic, openTime, closeTime
+        cafeId, cafeName, location, tel, cafePic, openTime, closeTime
         FROM cafe
         where cafeId = #{cafeId}
     </select>

@@ -44,7 +44,7 @@ public class MenuService {
         long menuId = p.getMenuId();
         long cafeId = p.getCafeId();
 
-        String middlePath = String.format("cafe/%d/menu/%d/%d",cafeId, p.getCategoryId(), menuId); // 폴더 위치 수정했음
+        String middlePath = String.format("cafe/%d/menu/%d",cafeId, menuId); // 폴더 위치 수정했음
         myFileUtils.makeFolders(middlePath);
 
         String filePath = String.format("%s/%s", middlePath, savedPicName);

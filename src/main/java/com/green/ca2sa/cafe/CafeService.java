@@ -2,6 +2,7 @@ package com.green.ca2sa.cafe;
 
 import com.green.ca2sa.cafe.model.*;
 import com.green.ca2sa.common.MyFileUtils;
+import com.green.ca2sa.common.PicUrlMaker;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.mindrot.jbcrypt.BCrypt;
@@ -113,7 +114,7 @@ public class CafeService {
     // 카페 조회
     public CafeGetRes selCafe(CafeGetReq p){
         CafeGetRes res = cafeMapper.selCafe(p);
-
+        res.setCafePic(PicUrlMaker.makePicUrl(res.getCafeId(), res.getCafePic()));
         return res;
     }
 

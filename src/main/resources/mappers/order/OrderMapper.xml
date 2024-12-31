@@ -47,7 +47,15 @@
 
 
     <select id="getOrderList" resultMap="OrderResultMap">
-        select
+        SELECT T2.*
+        FROM (
+        SELECT orderId
+        FROM `order`
+        order BY orderId DESC
+        LIMIT #{startIdx}, #{size}
+        ) T1
+        INNER JOIN(
+        SELECT
         a.orderId AS orderId,
         b.nickName AS nickName,
         c.cafeName AS cafeName,
@@ -63,19 +71,19 @@
         g.menuOptionId AS menuOptionId,
         g.optionName AS optionName,
         g.addPrice AS addPrice
-        from `order` a
-        inner join `user` b
-            on a.userId = b.userId
-        inner join `cafe` c
-            on c.cafeId = a.cafeId
-        left join `order_menu` d
-            on a.orderId = d.orderId
-        INNER join `menu` e
-            on d.menuId = e.menuId
-        left join `order_menu_option` f
-            on d.orderMenuId = f.orderMenuId
-        INNER join `menu_option` g
-            on f.menuOptionId = g.menuOptionId
+        FROM `order` a
+        INNER JOIN `user` b
+        ON a.userId = b.userId
+        INNER JOIN `cafe` c
+        ON c.cafeId = a.cafeId
+        LEFT JOIN `order_menu` d
+        ON a.orderId = d.orderId
+        INNER JOIN `menu` e
+        ON d.menuId = e.menuId
+        LEFT JOIN `order_menu_option` f
+        ON d.orderMenuId = f.orderMenuId
+        INNER JOIN `menu_option` g
+        ON f.menuOptionId = g.menuOptionId
         <where>
             <if test="cafeAdminId != null">
                 and a.cafeId = #{cafeAdminId}
@@ -84,8 +92,8 @@
                 and a.userId = #{signedUserId}
             </if>
         </where>
-        order by a.orderId desc
-        limit #{startIdx}, #{size}
+        ) T2
+        ON T1.orderId = T2.orderId
     </select>
 
     <!-- 주문 취소 요청 -->

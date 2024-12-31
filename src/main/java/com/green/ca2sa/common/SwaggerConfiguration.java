@@ -7,7 +7,7 @@ import io.swagger.v3.oas.annotations.info.Info;
         info = @Info(
                 title = "CA2SA",
                 version = "v1",
-                description = "카페인에투자하는사람들"
+                description = "카페인에 투자하는 사람들"
         )
 )
 public class SwaggerConfiguration {
