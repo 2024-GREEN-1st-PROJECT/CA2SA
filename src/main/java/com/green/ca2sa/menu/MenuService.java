@@ -1,9 +1,8 @@
 package com.green.ca2sa.menu;
 
-import com.green.ca2sa.cafe.category.CafeCategoryMapper;
 import com.green.ca2sa.common.MyFileUtils;
+import com.green.ca2sa.common.PicUrlMaker;
 import com.green.ca2sa.menu.model.*;
-import com.green.ca2sa.menu.option.MenuOptionMapper;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -21,7 +20,6 @@ import java.util.Map;
 @Slf4j
 public class MenuService {
     private final MenuMapper mapper;
-    private final MenuOptionMapper optionMapper;
     private final MyFileUtils myFileUtils;
 
     @Transactional
@@ -67,6 +65,7 @@ public class MenuService {
             groupedByCategory
                     .computeIfAbsent(dto.getCategoryName(), k -> new ArrayList<>())
                     .add(dto);
+            dto.setMenuPic(PicUrlMaker.makePicUrl(p.getCafeId(), dto.getMenuId(), dto.getMenuPic()));
         }
 
         // 결과 데이터 생성
@@ -157,14 +156,10 @@ public class MenuService {
         return mapper.deleteMenuInfo(p);
     }
 
-    @Transactional
     public MenuDetailGetRes getMenuDetailInfo(MenuDetailGetReq p) {
 
-        List<MenuDetailGetDto> detailList=mapper.getMenuDetailInfo(p);
-
         MenuDetailGetRes detailGetRes= mapper.getMenuDetail(p);
-
-        detailGetRes.setDetailList(detailList);
+        detailGetRes.setMenuPic(PicUrlMaker.makePicUrl(detailGetRes.getCafeId(), detailGetRes.getMenuId(), detailGetRes.getMenuPic()));
 
         return detailGetRes;
 

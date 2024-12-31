@@ -5,7 +5,6 @@ import com.green.ca2sa.common.MyFileUtils;
 import com.green.ca2sa.common.PicUrlMaker;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.mindrot.jbcrypt.BCrypt;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
@@ -36,7 +35,7 @@ public class CafeService {
         try {
             myFileUtils.transferTo(pic,filePath);
         } catch (IOException e) {
-            e.printStackTrace();
+            log.error(e.getMessage());
         }
         return res;
     }
@@ -54,19 +53,17 @@ public class CafeService {
         myFileUtils.deleteFolder(deletePath,false);
 
         if(p.getCafePic() == null){
-            int res = cafeMapper.updCafe(p);
-            return res;
+            return cafeMapper.updCafe(p);
         }
 
         String filePath = String.format("%s/%s",folderPath,fileName);
         try{
             myFileUtils.transferTo(pic,filePath);
         }catch(IOException e){
-            e.printStackTrace();
+            log.error(e.getMessage());
         }
-        int result = cafeMapper.updCafe(p);
 
-        return result;
+        return cafeMapper.updCafe(p);
     }
 
 
@@ -86,7 +83,9 @@ public class CafeService {
     // 카페 조회
     public CafeGetOneRes selCafe(CafeGetOneReq p){
         CafeGetOneRes res = cafeMapper.selCafe(p);
-
+        if (res != null && res.getCafePic() != null) {
+            res.setCafePic(PicUrlMaker.makePicUrl(p.getCafeId(), res.getCafePic()));
+        }
         return res;
     }
 

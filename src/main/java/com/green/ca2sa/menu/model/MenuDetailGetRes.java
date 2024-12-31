@@ -8,6 +8,8 @@ import java.util.List;
 @Getter
 @Setter
 public class MenuDetailGetRes {
+    private long cafeId;
+    private long menuId;
     private String menuName;
     private int price;
     private String comment;

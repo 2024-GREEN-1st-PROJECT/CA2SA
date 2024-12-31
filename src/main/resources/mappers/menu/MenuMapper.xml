@@ -26,16 +26,28 @@
         WHERE A.cafeId = #{cafeId}
     </select>
 
-    <select id="getMenuDetailInfo">
-        SELECT menuOptionId,optionName,addPrice
-        FROM menu_option
-        WHERE menuId=#{menuId}
-    </select>
+    <resultMap id="getMenuDetailResultMap" type="com.green.ca2sa.menu.model.MenuDetailGetRes">
+        <id property="menuId" column="A.menuId" />
+        <result property="cafeId" column="cafeId" />
+        <result property="menuName" column="menuName" />
+        <result property="price" column="price" />
+        <result property="comment" column="comment" />
+        <result property="menuPic" column="menuPic" />
+        <collection property="detailList" resultMap="detailListResultMap" />
+    </resultMap>
 
-    <select id="getMenuDetail">
-        SELECT menuName,price,comment,menuPic
-        FROM menu
-        WHERE menuId=#{menuId}
+    <resultMap id="detailListResultMap" type="com.green.ca2sa.menu.model.MenuDetailGetDto">
+        <id column="menuOptionId" property="menuOptionId" />
+        <result property="optionName" column="optionName" />
+        <result property="addPrice" column="addPrice" />
+    </resultMap>
+
+    <select id="getMenuDetail" resultMap="getMenuDetailResultMap">
+        SELECT A.menuId, cafeId, menuName,price,comment,menuPic,menuOptionId,optionName,addPrice
+        FROM menu A
+        LEFT JOIN menu_option B
+        ON A.menuId = B.menuId
+        WHERE A.menuId=#{menuId}
     </select>
 
     <update id = "updateMenuInfo">
