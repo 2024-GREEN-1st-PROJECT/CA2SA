@@ -39,8 +39,7 @@
         SET
 
         cafeName = #{cafeName}, location = #{location}, tel = #{tel}, cafePic = #{cafePic},
-        closeTime = #{closeTime}, openTime = #{openTime}, email = #{email},
-        apw = #{apw}, businessNumber = #{businessNumber}, agree = #{agree},
+        closeTime = #{closeTime}, openTime = #{openTime}, businessNumber = #{businessNumber},
         latitude = #{latitude}, longitude = #{longitude} , userId = #{userId}
 
     </insert>
