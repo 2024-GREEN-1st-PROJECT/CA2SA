@@ -23,8 +23,6 @@ public class CafeService {
     // 카페 회원 가입
     public int signUpCafe(MultipartFile pic, CafeSignUpReq p){
         String fileName = pic != null ? myFileUtils.makeRandomFileName(pic) : null;
-        String hasPwd = BCrypt.hashpw(p.getApw(), BCrypt.gensalt());
-        p.setApw(hasPwd);
         p.setCafePic(fileName);
         int res = cafeMapper.insCafe(p);
         long cafeId = p.getCafeId();
