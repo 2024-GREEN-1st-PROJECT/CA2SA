@@ -27,7 +27,7 @@
     </select>
 
     <resultMap id="getMenuDetailResultMap" type="com.green.ca2sa.menu.model.MenuDetailGetRes">
-        <id property="menuId" column="A.menuId" />
+        <id property="menuId" column="menuId" />
         <result property="cafeId" column="cafeId" />
         <result property="menuName" column="menuName" />
         <result property="price" column="price" />
