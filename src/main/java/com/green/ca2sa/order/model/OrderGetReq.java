@@ -13,12 +13,12 @@ import org.springframework.web.bind.annotation.BindParam;
 public class OrderGetReq extends Paging {
     @Schema(title = "고객 유저 PK",name = "signed_user_id", requiredMode = Schema.RequiredMode.REQUIRED)
     private Long signedUserId;
-    @Schema(title = "카페 관리자 PK",name = "cafe_admin_id")
+    @Schema(title = "카페 관리자 PK",name = "cafe_id")
     private Long cafeId;
 
 
     public OrderGetReq(Integer page, Integer size, @BindParam("signed_user_id")Long signedUserId
-                                                  , @BindParam("cafe_admin_id")Long cafeId) {
+                                                  , @BindParam("cafe_id")Long cafeId) {
         super(page, size);
         this.signedUserId = signedUserId;
         this.cafeId = cafeId;
