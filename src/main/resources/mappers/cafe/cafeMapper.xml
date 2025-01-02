@@ -54,7 +54,7 @@
     <select id="selAllCafe">
         select
         ROUND(6371000  * ACOS(COS(RADIANS(#{userLatitude})) * COS(RADIANS(latitude)) * COS(RADIANS(longitude) - RADIANS(#{userLongitude})) + SIN(RADIANS(#{userLatitude})) * SIN(RADIANS(latitude)))) AS distance,
-        cafeName, location, tel, cafePic, cafeId, openTime, closeTime, latitude, longitude
+        cafeName, location, tel, cafePic, latitude, longitude, cafeId, openTime, closeTime
         from cafe
         HAVING distance <![CDATA[ <= ]]> 1000
 
