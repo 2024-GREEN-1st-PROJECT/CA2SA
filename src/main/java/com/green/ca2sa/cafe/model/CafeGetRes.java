@@ -18,7 +18,7 @@ public class CafeGetRes {
     private BigDecimal latitude;
     private BigDecimal longitude;
 
-    public CafeGetRes(long cafeId, String cafeName, String location, String tel, String cafePic, int distance, BigDecimal latitude, BigDecimal longitude, String openTime, String closeTime) {
+    public CafeGetRes(long cafeId, String cafeName, String location, String tel, String cafePic, int distance, String openTime, String closeTime, BigDecimal latitude, BigDecimal longitude) {
         this.cafeId = cafeId;
         this.cafeName = cafeName;
         this.location = location;

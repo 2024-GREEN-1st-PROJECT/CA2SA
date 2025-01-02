@@ -54,28 +54,28 @@
     <select id="selAllCafe">
         select
         ROUND(6371000  * ACOS(COS(RADIANS(#{userLatitude})) * COS(RADIANS(latitude)) * COS(RADIANS(longitude) - RADIANS(#{userLongitude})) + SIN(RADIANS(#{userLatitude})) * SIN(RADIANS(latitude)))) AS distance,
-        cafeName, location, tel, cafePic, latitude, longitude, cafeId, openTime, closeTime
+        cafeName, location, tel, cafePic, cafeId, openTime, closeTime, latitude, longitude
         from cafe
         HAVING distance <![CDATA[ <= ]]> 1000
 
     </select>
 
     <select id="searchCafe">
-        select
-        ROUND(6371000  * ACOS(COS(RADIANS(#{userLatitude})) * COS(RADIANS(latitude)) * COS(RADIANS(longitude) - RADIANS(#{userLongitude})) + SIN(RADIANS(#{userLatitude})) * SIN(RADIANS(latitude)))) AS distance,
+        SELECT
+        ROUND(6371000 * ACOS(COS(RADIANS(#{userLatitude})) * COS(RADIANS(latitude)) * COS(RADIANS(longitude) - RADIANS(#{userLongitude})) + SIN(RADIANS(#{userLatitude})) * SIN(RADIANS(latitude)))) AS distance,
         cafeName, location, tel, cafePic, a.cafeId, openTime, closeTime, latitude, longitude
-        from cafe a
-        join menu b
-        on a.cafeId = b.cafeId
+        FROM cafe a
+        JOIN menu b
+        ON a.cafeId = b.cafeId
+        WHERE 1=1
         <if test="searchMenuName != null and searchMenuName != ''">
-            WHERE
-            menuName LIKE '%${searchMenuName}%'
+            AND menuName LIKE '%${searchMenuName}%'
         </if>
         <if test="searchCafeName != null and searchCafeName != ''">
-            WHERE
-            cafeName Like '%${searchCafeName}%'
+            AND cafeName LIKE '%${searchCafeName}%'
         </if>
-        HAVING distance <![CDATA[ <= ]]> #{maxDistance}
+        GROUP BY cafeId
+        HAVING distance <![CDATA[<=]]> #{maxDistance}
     </select>
 
 </mapper>
