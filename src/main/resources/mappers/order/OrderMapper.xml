@@ -23,6 +23,7 @@
         <id property="orderId" column="orderId" />
         <result property="nickName" column="nickName" />
         <result property="cafeName" column="cafeName" />
+        <result property="cafeId" column="cafeId" />
         <result property="location" column="location" />
         <result property="pickUpTime" column="pickUpTime" />
         <result property="createdAt" column="createdAt" />
@@ -63,6 +64,7 @@
         a.orderId AS orderId,
         b.nickName AS nickName,
         c.cafeName AS cafeName,
+        c.cafeId As cafeId,
         c.location AS location,
         a.pickUpTime AS pickUpTime,
         a.createdAt AS createdAt,
