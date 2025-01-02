@@ -7,8 +7,6 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
 import java.io.IOException;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.UUID;
 
 @Getter
@@ -52,7 +50,7 @@ public class MyFileUtils {
 //                        return deleteFolder(filePath.subpath(3, filePath.getNameCount()).toString(), true);
                         return deleteFolder(file.getPath(), true);
                     }
-                    if(!file.delete()) {
+                    if (!file.delete()) {
                         return false;
                     }
                 }
@@ -60,6 +58,22 @@ public class MyFileUtils {
             if (delRootFolder) {
                 return dir.delete();
             }
+        }
+        return false;
+    }
+
+    public boolean deleteFile(String path) {
+        File dir = new File(uploadPath, path);
+        if (dir.exists() && dir.isDirectory()) {
+            File[] includedFiles = dir.listFiles();
+            if (includedFiles != null) {
+                for (File file : includedFiles) {
+                    if (file.isFile() && !file.delete()) {
+                        return false;
+                    }
+                }
+            }
+            return true;
         }
         return false;
     }

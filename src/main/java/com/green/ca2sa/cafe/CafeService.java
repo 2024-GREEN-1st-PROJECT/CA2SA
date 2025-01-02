@@ -43,18 +43,16 @@ public class CafeService {
     // 카페 정보 변경
     @Transactional
     public int updCafe(MultipartFile pic, CafePutReq p){
-        String fileName = pic != null ? myFileUtils.makeRandomFileName(pic) : null;
-        long cafeId = p.getCafeId();
-        String folderPath = String.format("cafe/%d",cafeId);
-        myFileUtils.makeFolders(folderPath);
+        String fileName = myFileUtils.makeRandomFileName(pic);
         p.setCafePic(fileName);
-
-        String deletePath = String.format("cafe/%d",cafeId);
-        myFileUtils.deleteFolder(deletePath,false);
 
         if(p.getCafePic() == null){
             return cafeMapper.updCafe(p);
         }
+        long cafeId = p.getCafeId();
+
+        String folderPath = String.format("cafe/%d",cafeId);
+        myFileUtils.deleteFile(folderPath);
 
         String filePath = String.format("%s/%s",folderPath,fileName);
         try{
