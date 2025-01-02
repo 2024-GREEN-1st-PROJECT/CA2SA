@@ -61,18 +61,19 @@
     </select>
 
     <select id="searchCafe">
-        SELECT
-        ROUND(6371000 * ACOS(COS(RADIANS(#{userLatitude})) * COS(RADIANS(latitude)) * COS(RADIANS(longitude) - RADIANS(#{userLongitude})) + SIN(RADIANS(#{userLatitude})) * SIN(RADIANS(latitude)))) AS distance,
-        cafeName, location, tel, cafePic, a.cafeId, openTime, closeTime, latitude, longitude
-        FROM cafe a
-        JOIN menu b
-        ON a.cafeId = b.cafeId
-        WHERE 1=1
+        select
+        ROUND(6371000  * ACOS(COS(RADIANS(#{userLatitude})) * COS(RADIANS(latitude)) * COS(RADIANS(longitude) - RADIANS(#{userLongitude})) + SIN(RADIANS(#{userLatitude})) * SIN(RADIANS(latitude)))) AS distance,
+        cafeName, location, tel, cafePic, latitude, longitude, a.cafeId, openTime, closeTime
+        from cafe a
+        left join menu b
+        on a.cafeId = b.cafeId
         <if test="searchMenuName != null and searchMenuName != ''">
-            AND menuName LIKE '%${searchMenuName}%'
+            WHERE
+            menuName LIKE '%${searchMenuName}%'
         </if>
         <if test="searchCafeName != null and searchCafeName != ''">
-            AND cafeName LIKE '%${searchCafeName}%'
+            WHERE
+            cafeName Like '%${searchCafeName}%'
         </if>
         GROUP BY cafeId
         HAVING distance <![CDATA[<=]]> #{maxDistance}
