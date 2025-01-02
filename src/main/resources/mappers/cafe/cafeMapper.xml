@@ -75,7 +75,7 @@
             WHERE
             cafeName Like '%${searchCafeName}%'
         </if>
-        GROUP BY cafeId
+        GROUP BY a.cafeId
         HAVING distance <![CDATA[<=]]> #{maxDistance}
     </select>
 
