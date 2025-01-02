@@ -46,7 +46,7 @@
 
     <select id="selCafe">
         SELECT
-        cafeId, cafeName, location, tel, cafePic, openTime, closeTime
+        cafeId, cafeName, location, tel, cafePic, openTime, closeTime, latitude, longitude
         FROM cafe
         where cafeId = #{cafeId}
     </select>
