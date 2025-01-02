@@ -51,6 +51,11 @@
         FROM (
         SELECT orderId
         FROM `order`
+        WHERE userId = #{signedUserId}
+        <if test="cafeId != null and cafeId != ''" >
+            and cafeId = #{cafeId}
+        </if>
+        ORDER BY orderId DESC
         LIMIT #{startIdx}, #{size}
         ) T1
         INNER JOIN(
@@ -83,13 +88,9 @@
         ON d.orderMenuId = f.orderMenuId
         INNER JOIN `menu_option` g
         ON f.menuOptionId = g.menuOptionId
-        WHERE a.userId = #{signedUserId}
-        <if test="cafeId != null and cafeId != ''" >
-            and a.cafeId = #{cafeId}
-        </if>
-        ORDER BY A.orderId DESC
         ) T2
         ON T1.orderId = T2.orderId
+        ORDER BY T2.orderId DESC
     </select>
 
     <!-- 주문 취소 요청 -->

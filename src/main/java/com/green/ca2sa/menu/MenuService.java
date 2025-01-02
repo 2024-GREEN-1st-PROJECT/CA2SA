@@ -39,10 +39,8 @@ public class MenuService {
         }
 
         int result = mapper.postMenuInfo(p);
-        long menuId = p.getMenuId();
-        long cafeId = p.getCafeId();
 
-        String middlePath = String.format("cafe/%d/menu/%d",cafeId, menuId); // 폴더 위치 수정했음
+        String middlePath = getMenuPicPath(p.getCafeId(), p.getMenuId());
         myFileUtils.makeFolders(middlePath);
 
         String filePath = String.format("%s/%s", middlePath, savedPicName);
@@ -126,16 +124,14 @@ public class MenuService {
         if (pic == null) {
             return mapper.updateMenuInfo(p);
         }
-        String deletePath = String.format("/menu/%d", p.getCafeId());
-        myFileUtils.deleteFolder(deletePath, true);
+        String middlePath = getMenuPicPath(p.getCafeId(), p.getMenuId());
+        myFileUtils.deleteFolder(middlePath, true);
 
         String savedPicName = myFileUtils.makeRandomFileName(pic);
         p.setMenuPic(savedPicName);
 
         int result = mapper.updateMenuInfo(p);
 
-        long menuId = p.getMenuId();
-        String middlePath = String.format("/menu/%d",menuId);
         myFileUtils.makeFolders(middlePath);
 
         String filePath = String.format("%s/%s", middlePath, savedPicName);
@@ -150,7 +146,7 @@ public class MenuService {
     @Transactional
     public int deleteMenuInfo(MenuDelReq p) {
 
-        String deletePath = String.format("cafe/%d/menu/%d", p.getCafeId(), p.getMenuId());
+        String deletePath = getMenuPicPath(p.getCafeId(), p.getMenuId());
         myFileUtils.deleteFolder(deletePath, true);
 
         return mapper.deleteMenuInfo(p);
@@ -163,5 +159,9 @@ public class MenuService {
 
         return detailGetRes;
 
+    }
+
+    private String getMenuPicPath(long cafeId, long menuId) {
+        return String.format("cafe/%d/menu/%d", cafeId, menuId);
     }
 }
