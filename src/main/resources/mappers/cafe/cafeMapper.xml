@@ -65,7 +65,7 @@
         ROUND(6371000  * ACOS(COS(RADIANS(#{userLatitude})) * COS(RADIANS(latitude)) * COS(RADIANS(longitude) - RADIANS(#{userLongitude})) + SIN(RADIANS(#{userLatitude})) * SIN(RADIANS(latitude)))) AS distance,
         cafeName, location, tel, cafePic, latitude, longitude, a.cafeId, openTime, closeTime
         from cafe a
-        join menu b
+        left join menu b
         on a.cafeId = b.cafeId
         <if test="searchMenuName != null and searchMenuName != ''">
             WHERE
