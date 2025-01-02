@@ -51,7 +51,7 @@
 
     <select id="selUserSpent">
         SELECT
-        SUM(a.count * (b.price + d.addprice)) AS totalUsedAmount
+        IFNULL(SUM(a.count * (b.price + d.addprice)), 0) AS totalUsedAmount
         FROM order_menu a
         LEFT JOIN menu b
         ON a.menuId = b.menuId
