@@ -61,6 +61,9 @@ public class OrderService {
     }
 
     public List<OrderGetRes> GetOrderList(OrderGetReq p) {
+        if (p == null || p.getSignedUserId() == null) {
+            return new ArrayList<>();
+        }
         return orderMapper.getOrderList(p);
     }
 

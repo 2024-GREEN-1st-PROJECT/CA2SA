@@ -51,7 +51,6 @@
         FROM (
         SELECT orderId
         FROM `order`
-        order BY orderId DESC
         LIMIT #{startIdx}, #{size}
         ) T1
         INNER JOIN(
@@ -84,14 +83,11 @@
         ON d.orderMenuId = f.orderMenuId
         INNER JOIN `menu_option` g
         ON f.menuOptionId = g.menuOptionId
-        <where>
-            <if test="cafeAdminId != null">
-                and a.cafeId = #{cafeAdminId}
-            </if>
-            <if test="signedUserId != null">
-                and a.userId = #{signedUserId}
-            </if>
-        </where>
+        WHERE a.userId = #{signedUserId}
+        <if test="cafeId != null and cafeId != ''" >
+            and a.cafeId = #{cafeId}
+        </if>
+        ORDER BY A.orderId DESC
         ) T2
         ON T1.orderId = T2.orderId
     </select>

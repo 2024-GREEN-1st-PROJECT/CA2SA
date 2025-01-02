@@ -135,7 +135,7 @@ public class MenuService {
         int result = mapper.updateMenuInfo(p);
 
         long menuId = p.getMenuId();
-        String middlePath = String.format("/menu/%d/%d", p.getCategoryId(),menuId);
+        String middlePath = String.format("/menu/%d",menuId);
         myFileUtils.makeFolders(middlePath);
 
         String filePath = String.format("%s/%s", middlePath, savedPicName);
@@ -150,7 +150,7 @@ public class MenuService {
     @Transactional
     public int deleteMenuInfo(MenuDelReq p) {
 
-        String deletePath = String.format("cafe/%d/menu/%d/%d", p.getCafeId(), p.getCategoryId(), p.getMenuId());
+        String deletePath = String.format("cafe/%d/menu/%d", p.getCafeId(), p.getMenuId());
         myFileUtils.deleteFolder(deletePath, true);
 
         return mapper.deleteMenuInfo(p);
