@@ -7,6 +7,6 @@ import org.apache.ibatis.annotations.Mapper;
 @Mapper
 public interface MenuOptionMapper {
     int postMenuOptionInfo(MenuOptionPostReq p);
-    int existsMenuOption(long menuId, String optionName);
+    boolean existsMenuOption(long menuId, String optionName);
     int updateMenuOptionInfo(MenuOptionPutReq p);
 }

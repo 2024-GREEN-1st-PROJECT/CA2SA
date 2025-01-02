@@ -1,5 +1,6 @@
 package com.green.ca2sa.menu.option.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Getter;
 import lombok.Setter;
@@ -7,6 +8,7 @@ import lombok.Setter;
 @Setter
 @Getter
 public class MenuOptionPutReq {
+
     private long menuOptionId;
     @Schema(title = "옵션 이름", example = "아이스", requiredMode = Schema.RequiredMode.REQUIRED)
     private String optionName;
