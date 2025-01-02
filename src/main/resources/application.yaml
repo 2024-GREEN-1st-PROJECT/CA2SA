@@ -13,9 +13,9 @@ spring:
     name: CA2SA
   datasource:
     driver-class-name: net.sf.log4jdbc.sql.jdbcapi.DriverSpy
-    url: jdbc:log4jdbc:mariadb://localhost/ca2sa
-    username: root
-    password: green502
+    url: jdbc:log4jdbc:mariadb://192.168.0.144/db_even_first_4
+    username: even_first_4
+    password: cell
   servlet:
     multipart:
       max-file-size: 15MB

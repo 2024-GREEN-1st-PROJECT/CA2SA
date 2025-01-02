@@ -9,10 +9,12 @@
         addPrice = #{addPrice}
     </insert>
 
-    <select id = "existsMenuOption" parameterType="map" resultType="int">
-        SELECT COUNT(*)
+    <select id="existsMenuOption" parameterType="map" resultType="boolean">
+        SELECT EXISTS (
+        SELECT 1
         FROM menu_option
         WHERE menuId = #{menuId} AND optionName = #{optionName}
+        )
     </select>
 
     <update id = "updateMenuOptionInfo">

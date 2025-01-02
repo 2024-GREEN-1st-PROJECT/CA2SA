@@ -4,20 +4,20 @@ import com.green.ca2sa.menu.option.model.MenuOptionPostReq;
 import com.green.ca2sa.menu.option.model.MenuOptionPutReq;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @RequiredArgsConstructor
 public class MenuOptionService {
     private final MenuOptionMapper mapper;
 
+    @Transactional
     public int postMenuOptionInfo(MenuOptionPostReq p) {
-        int result = mapper.postMenuOptionInfo(p);
-        p.getMenuOptionId();
-        int exists = mapper.existsMenuOption(p.getMenuId(), p.getOptionName());
-        if (exists > 0) {
+        boolean exists = mapper.existsMenuOption(p.getMenuId(), p.getOptionName());
+        if (exists) {
             throw new IllegalArgumentException("이미 존재하는 옵션입니다.");
         }
-        return result;
+        return mapper.postMenuOptionInfo(p);
     }
 
     public int updateMenuOptionInfo(MenuOptionPutReq p) {
