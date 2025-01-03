@@ -53,8 +53,9 @@
 
     <select id="selAllCafe">
         select
+        cafeId, cafeName, location, tel, cafePic AS pic, latitude, longitude,
         ROUND(6371000  * ACOS(COS(RADIANS(#{userLatitude})) * COS(RADIANS(latitude)) * COS(RADIANS(longitude) - RADIANS(#{userLongitude})) + SIN(RADIANS(#{userLatitude})) * SIN(RADIANS(latitude)))) AS distance,
-        cafeName, location, tel, cafePic AS pic, latitude, longitude, cafeId, openTime, closeTime
+        openTime, closeTime
         from cafe
         HAVING distance <![CDATA[ <= ]]> 1000
 
@@ -62,8 +63,10 @@
 
     <select id="searchCafe">
         select
+        a.cafeId,
+        cafeName, location, tel, cafePic AS pic, latitude, longitude,
         ROUND(6371000  * ACOS(COS(RADIANS(#{userLatitude})) * COS(RADIANS(latitude)) * COS(RADIANS(longitude) - RADIANS(#{userLongitude})) + SIN(RADIANS(#{userLatitude})) * SIN(RADIANS(latitude)))) AS distance,
-        cafeName, location, tel, cafePic AS pic, latitude, longitude, a.cafeId, openTime, closeTime
+        openTime, closeTime
         from cafe a
         left join menu b
         on a.cafeId = b.cafeId
