@@ -7,9 +7,9 @@
         update `order`
         set orderProgress = #{orderProgress}
         where orderId = #{orderId}
-        AND cafeId IN (
-        SELECT cafeId
-        FROM cafe
+        AND userId IN (
+        SELECT userId
+        FROM user
         WHERE userId = #{userId}
         )
     </update>
