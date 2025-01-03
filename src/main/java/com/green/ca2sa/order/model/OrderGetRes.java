@@ -12,6 +12,7 @@ public class OrderGetRes {
     private long orderId;
     private String nickName;
     private String cafeName;
+    private long cafeId;
     private String location;
     private String pickUpTime;
     private String createdAt;
