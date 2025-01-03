@@ -2,9 +2,11 @@ package com.green.ca2sa.cafe.model;
 
 import com.green.ca2sa.common.PicUrlMaker;
 import lombok.Getter;
+import lombok.extern.slf4j.Slf4j;
 
 import java.math.BigDecimal;
 
+@Slf4j
 @Getter
 public class CafeGetRes {
     private long cafeId;
@@ -18,7 +20,7 @@ public class CafeGetRes {
     private BigDecimal latitude;
     private BigDecimal longitude;
 
-    public CafeGetRes(long cafeId, String cafeName, String location, String tel, String cafePic, int distance, BigDecimal latitude, BigDecimal longitude, String openTime, String closeTime) {
+    public CafeGetRes(long cafeId, String cafeName, String location, String tel, String pic, int distance, BigDecimal latitude, BigDecimal longitude, String openTime, String closeTime) {
         this.cafeId = cafeId;
         this.cafeName = cafeName;
         this.location = location;
@@ -28,6 +30,6 @@ public class CafeGetRes {
         this.closeTime = closeTime;
         this.latitude = latitude;
         this.longitude = longitude;
-        this.cafePic = PicUrlMaker.makePicUrl(cafeId, cafePic);
+        this.cafePic = PicUrlMaker.makePicUrl(cafeId, pic);
     }
 }

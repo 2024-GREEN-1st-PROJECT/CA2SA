@@ -2,6 +2,7 @@ package com.green.ca2sa.menu.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import io.swagger.v3.oas.annotations.media.Schema;
+import jakarta.validation.constraints.Positive;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -9,9 +10,11 @@ import lombok.Setter;
 @Getter
 public class MenuPutReq {
 
+    @Positive
     @Schema(title = "메뉴 ID", example = "1", requiredMode = Schema.RequiredMode.REQUIRED)
     private long menuId;
-
+    @Positive
+    @Schema(title = "카페 ID", example = "1", requiredMode = Schema.RequiredMode.REQUIRED)
     private long cafeId;
 
     private long categoryId;
