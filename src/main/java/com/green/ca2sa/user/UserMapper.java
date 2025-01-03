@@ -11,7 +11,6 @@ public interface UserMapper {
     UserSignUpEmailCheckRes getUserEmailCheck(String email);
     UserSingInRes postUserSingIn(UserSignInReq p);
     int updateUserInfo(UserInfoPutReq p);
-    UserInfoPutDto updateCheckUpwInfo(UserInfoPutReq p);
     int deleteUserInfo(UserInfoDelReq p);
     UserInfoDelDto deleteUpwCheck(UserInfoDelReq p);
     UserSpentRes selUserSpent(UserSpentReq p);

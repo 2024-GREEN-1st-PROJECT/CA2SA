@@ -60,19 +60,6 @@ public class UserService {
 
 
     public int updateUserInfo(UserInfoPutReq p){
-
-        UserInfoPutDto dto=mapper.updateCheckUpwInfo(p);
-
-        if(!BCrypt.checkpw(p.getUpw(), dto.getUpw())){
-            return 0; // 비밀번호가 틀릴시 0으로 리턴
-        }
-
-
-
-//        String hashedPassword=BCrypt.hashpw(p.getUpw(), BCrypt.gensalt());
-//        p.setUpw(hashedPassword); 비밀번호는 수정못하는걸로 간다. 프론트에서 어렵다 함.
-
-
         return mapper.updateUserInfo(p);
     }
 
@@ -89,8 +76,7 @@ public class UserService {
     }
 
     public UserSpentRes selUserSpent(UserSpentReq p){
-        UserSpentRes res = mapper.selUserSpent(p);
-        return res;
+        return mapper.selUserSpent(p);
     }
 
 
