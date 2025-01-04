@@ -34,6 +34,7 @@
 
     <resultMap id="orderMenuResultMap" type="com.green.ca2sa.order.orderMenu.model.OrderMenuDto">
         <id property="orderMenuId" column="orderMenuId" />
+        <result property="menuId" column="menuId" />
         <result property="orderMenuName" column="menuName" />
         <result property="price" column="price" />
         <result property="count" column="count" />
@@ -72,6 +73,7 @@
         a.orderProgress AS orderProgress,
         d.orderMenuId AS orderMenuId,
         e.menuName AS menuName,
+        e.menuId AS menuId,
         e.price AS price,
         d.count AS count,
         g.menuOptionId AS menuOptionId,
