@@ -11,6 +11,7 @@ import java.util.List;
 @ToString
 public class OrderMenuDto {
     private long orderMenuId;
+    private long menuId;
     private String orderMenuName;
     private int price;
     private int count;
