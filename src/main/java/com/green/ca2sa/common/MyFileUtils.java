@@ -83,4 +83,10 @@ public class MyFileUtils {
         File file = new File(uploadPath, path);
         mf.transferTo(file);
     }
+
+    public boolean existFile(String path) {
+
+        return new File(uploadPath, path).exists();
+
+    }
 }
